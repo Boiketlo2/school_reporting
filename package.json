@@ -1,0 +1,20 @@
+{
+  "name": "school-reporting",
+  "version": "1.0.0",
+  "description": "School Reporting System",
+  "main": "index.js",
+  "scripts": {
+    "server": "cd backend && node server.js",
+    "client": "cd frontend && npx yarn start",
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "install-all": "cd backend && npm install && cd ../frontend && yarn install"
+  },
+  "dependencies": {
+    "concurrently": "^9.2.1",
+    "cors": "^2.8.5",
+    "file-saver": "^2.0.5",
+    "xlsx": "^0.18.5"
+  },
+  "author": "",
+  "license": "ISC"
+}
