@@ -1,0 +1,12 @@
+/* Smooth expand/collapse for the write report form */
+.student-card .form-container {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+  opacity: 0;
+}
+
+.student-card .form-container.expanded {
+  max-height: 1000px; /* Enough to show full form */
+  opacity: 1;
+}
