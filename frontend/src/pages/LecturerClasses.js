@@ -11,7 +11,7 @@ const LecturerClasses = ({ user }) => {
 
     const fetchClasses = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/classes/lecturer/${user.id}`);
+        const res = await axios.get(https://school-reporting.onrender.com/api/classes/lecturer/${user.id}`);
         setClasses(res.data);
       } catch (err) {
         console.error("Error fetching classes:", err);
