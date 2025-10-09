@@ -11,7 +11,7 @@ const PrlClasses = ({ user }) => {
 
     const fetchClasses = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/classes/prl/${user.id}`);
+        const res = await axios.get(https://school-reporting.onrender.com/api/classes/prl/${user.id}`);
         setClasses(res.data);
       } catch (err) {
         console.error("Error fetching PRL classes:", err);
