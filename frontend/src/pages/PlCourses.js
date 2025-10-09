@@ -35,7 +35,7 @@ const PlCourses = () => {
     total_students: "",
   });
 
-  const API_BASE = process.env.REACT_APP_API_BASE || "http://localhost:5000/api";
+  const API_BASE = process.env.REACT_APP_API_BASE || https://school-reporting.onrender.com/api";
 
   // -------------------
   // Load user & initial data
