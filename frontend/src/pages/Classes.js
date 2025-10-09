@@ -28,7 +28,7 @@ const Classes = ({ user }) => {
           return;
         }
 
-        const res = await axios.get(`http://localhost:5000${url}`);
+        const res = await axios.get(https://school-reporting.onrender.com${url}`);
         setClasses(res.data);
       } catch (err) {
         console.error("Error fetching classes:", err);
