@@ -15,12 +15,12 @@ const Classes = ({ user }) => {
 
     const fetchClasses = async () => {
       try {
-        let url = "/api/classes"; // default fallback
+        let url = "https://school-reporting.onrender.com/api/classes"; // default fallback
 
         if (user.role === "lecturer") {
-          url = `/api/classes/lecturer/${user.id}`;
+          url = `https://school-reporting.onrender.com/api/classes/lecturer/${user.id}`;
         } else if (user.role === "pl") {
-          url = `/api/classes/pl/${user.id}`;
+          url = `https://school-reporting.onrender.com/api/classes/pl/${user.id}`;
         } else if (user.role === "prl") {
           // PRL role doesn't have classes
           setClasses([]);
@@ -28,7 +28,7 @@ const Classes = ({ user }) => {
           return;
         }
 
-        const res = await axios.get("https://school-reporting.onrender.com"${url}`);
+        const res = await axios.get(url);
         setClasses(res.data);
       } catch (err) {
         console.error("Error fetching classes:", err);
