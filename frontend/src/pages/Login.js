@@ -17,7 +17,7 @@ const Login = ({ onLogin }) => {
 
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/auth/login",
+        "https://school-reporting.onrender.com/api/auth/login",
         payload,
         { headers: { "Content-Type": "application/json" } }
       );
