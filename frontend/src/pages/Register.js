@@ -29,7 +29,7 @@ const Register = () => {
       };
 
       const res = await axios.post(
-        "http://localhost:5000/api/auth/register",
+        "https://school-reporting.onrender.com/api/auth/register",
         payload,
         { headers: { "Content-Type": "application/json" } }
       );
