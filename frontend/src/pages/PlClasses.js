@@ -11,7 +11,7 @@ const PlClasses = ({ user }) => {
 
     const fetchClasses = async () => {
       try {
-        const res = await axios.get(https://school-reporting.onrender.com/pl/${user.id}`);
+        const res = await axios.get(`https://school-reporting.onrender.com/api/classes/pl/${user.id}`);
         setClasses(res.data);
       } catch (err) {
         console.error("Error fetching PL classes:", err);
@@ -28,7 +28,7 @@ const PlClasses = ({ user }) => {
     if (!window.confirm("Are you sure you want to delete this class?")) return;
 
     try {
-      await axios.delete(`http://localhost:5000/api/classes/${classId}`);
+      await axios.delete(`https://school-reporting.onrender.com/api/classes/${classId}`);
       setClasses(classes.filter((c) => c.id !== classId)); // update UI
     } catch (err) {
       console.error("Error deleting class:", err);
