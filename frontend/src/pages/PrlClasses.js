@@ -11,7 +11,9 @@ const PrlClasses = ({ user }) => {
 
     const fetchClasses = async () => {
       try {
-        const res = await axios.get(https://school-reporting.onrender.com/api/classes/prl/${user.id}`);
+        const res = await axios.get(
+          `https://school-reporting.onrender.com/api/classes/prl/${user.id}`
+        );
         setClasses(res.data);
       } catch (err) {
         console.error("Error fetching PRL classes:", err);
@@ -26,7 +28,8 @@ const PrlClasses = ({ user }) => {
 
   if (loading) return <p className="p-4">Loading your classes...</p>;
   if (error) return <p className="p-4 text-danger">{error}</p>;
-  if (classes.length === 0) return <p className="p-4">You have no assigned classes yet.</p>;
+  if (classes.length === 0)
+    return <p className="p-4">You have no assigned classes yet.</p>;
 
   return (
     <div className="p-4">
