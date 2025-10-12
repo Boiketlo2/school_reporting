@@ -11,7 +11,9 @@ const PlClasses = ({ user }) => {
 
     const fetchClasses = async () => {
       try {
-        const res = await axios.get(`https://school-reporting.onrender.com/api/classes/pl/${user.id}`);
+        const res = await axios.get(
+          `https://school-reporting.onrender.com/api/classes/pl/${user.id}`
+        );
         setClasses(res.data);
       } catch (err) {
         console.error("Error fetching PL classes:", err);
@@ -28,8 +30,10 @@ const PlClasses = ({ user }) => {
     if (!window.confirm("Are you sure you want to delete this class?")) return;
 
     try {
-      await axios.delete(`https://school-reporting.onrender.com/api/classes/${classId}`);
-      setClasses(classes.filter((c) => c.id !== classId)); // update UI
+      await axios.delete(
+        `https://school-reporting.onrender.com/api/classes/${classId}`
+      );
+      setClasses(classes.filter((c) => c.id !== classId));
     } catch (err) {
       console.error("Error deleting class:", err);
       alert("Failed to delete class. Please try again.");
@@ -38,7 +42,8 @@ const PlClasses = ({ user }) => {
 
   if (loading) return <p className="p-4">Loading your classes...</p>;
   if (error) return <p className="p-4 text-danger">{error}</p>;
-  if (classes.length === 0) return <p className="p-4">You have no assigned classes yet.</p>;
+  if (classes.length === 0)
+    return <p className="p-4">You have no assigned classes yet.</p>;
 
   return (
     <div className="p-4">
@@ -52,7 +57,7 @@ const PlClasses = ({ user }) => {
             <th>Schedule</th>
             <th>Venue</th>
             <th>Total Students</th>
-            <th>Actions</th> {/* new column */}
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
