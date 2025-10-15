@@ -7,7 +7,10 @@ const dbConfig = {
   password: process.env.DB_PASSWORD || "",
   database: process.env.DB_NAME || "school_reporting",
   port: process.env.DB_PORT ? parseInt(process.env.DB_PORT, 10) : 3306,
-  connectionLimit: 10, // 🧠 optimize connection pooling
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0,
+  connectTimeout: 10000, // 10 seconds
 };
 
 // Create connection pool
@@ -32,5 +35,17 @@ function testConnection(retries = 5) {
 }
 
 testConnection();
+
+// Keep the pool alive: ping every 5 minutes
+setInterval(() => {
+  db.query("SELECT 1", (err) => {
+    if (err) console.warn("⚠️ MySQL ping failed:", err.message);
+  });
+}, 300000); // 5 minutes
+
+// Global pool error handler
+db.on("error", (err) => {
+  console.error("❌ MySQL pool error:", err.code, err.message);
+});
 
 module.exports = db;
