@@ -17,9 +17,9 @@ const courseRoutes = require("./routes/courseRoutes");
 const classRoutes = require("./routes/classRoutes");
 const reportRoutes = require("./routes/reportRoutes");
 const feedbackRoutes = require("./routes/feedbackRoutes");
-const ratingRoutes = require("./routes/ratingRoutes");          // Ratings
-const monitoringRoutes = require("./routes/monitoringRoutes");  // Monitoring
-const streamRoutes = require("./routes/streamRoutes");          // ✅ Streams
+const ratingRoutes = require("./routes/ratingRoutes");
+const monitoringRoutes = require("./routes/monitoringRoutes");
+const streamRoutes = require("./routes/streamRoutes");
 
 // ------------------------
 // Express App Setup
@@ -27,7 +27,11 @@ const streamRoutes = require("./routes/streamRoutes");          // ✅ Streams
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(
+  cors({
+    origin: "*", // allow all origins for now (Render + Vercel friendly)
+  })
+);
 app.use(express.json()); // built-in body parser
 
 // ------------------------
@@ -43,6 +47,13 @@ db.getConnection((err, connection) => {
 });
 
 // ------------------------
+// Health Check (for Render uptime)
+// ------------------------
+app.get("/api/health", (req, res) => {
+  res.status(200).json({ status: "ok", time: new Date().toISOString() });
+});
+
+// ------------------------
 // Routes
 // ------------------------
 app.use("/api/auth", authRoutes);
@@ -52,9 +63,9 @@ app.use("/api/courses", courseRoutes);
 app.use("/api/classes", classRoutes);
 app.use("/api/reports", reportRoutes);
 app.use("/api/feedback", feedbackRoutes);
-app.use("/api/ratings", ratingRoutes);          // Ratings API
-app.use("/api/monitoring", monitoringRoutes);   // Monitoring API
-app.use("/api/streams", streamRoutes);          // ✅ Streams API
+app.use("/api/ratings", ratingRoutes);
+app.use("/api/monitoring", monitoringRoutes);
+app.use("/api/streams", streamRoutes);
 
 // ------------------------
 // Root & Test Routes
@@ -86,4 +97,6 @@ app.use((err, req, res, next) => {
 // Start Server
 // ------------------------
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+app.listen(PORT, () =>
+  console.log(`🚀 Server running on port ${PORT} at ${new Date().toLocaleString()}`)
+);
