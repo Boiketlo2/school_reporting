@@ -71,11 +71,15 @@ const LecturerReports = ({ user }) => {
           ? classesData
           : classesData.data || [];
 
+        // Map classes to match backend response
         const mappedClasses = classArray.map((c, idx) => ({
           key: `${c.id}-${idx}`,
           id: c.id,
           class_name: c.class_name,
           course_id: c.course_id,
+          course_name: c.course_name || "",
+          course_code: c.course_code || "",
+          lecturer_id: c.lecturer_id,
         }));
         setClasses(mappedClasses);
       } catch (err) {
@@ -163,6 +167,8 @@ const LecturerReports = ({ user }) => {
 
     const data = reports.map((r) => ({
       "Class Name": r.class_name || r.class_id,
+      "Course Name": r.course_name || "—",
+      "Course Code": r.course_code || "—",
       Week: r.week,
       Topic: r.topic,
       "Lecture Date": new Date(r.lecture_date).toLocaleDateString(),
@@ -239,7 +245,7 @@ const LecturerReports = ({ user }) => {
                 <option value="">Select Class</option>
                 {classes.map((c) => (
                   <option key={c.key} value={c.id}>
-                    {c.class_name} ({c.id})
+                    {c.class_name} ({c.course_code})
                   </option>
                 ))}
               </select>
@@ -338,7 +344,10 @@ const LecturerReports = ({ user }) => {
         <div className="card p-4 shadow-sm mb-4">
           <div className="d-flex justify-content-between align-items-center">
             <h5>📚 My Submitted Reports</h5>
-            <button className="btn btn-outline-success btn-sm" onClick={exportToExcel}>
+            <button
+              className="btn btn-outline-success btn-sm"
+              onClick={exportToExcel}
+            >
               ⬇️ Export to Excel
             </button>
           </div>
@@ -350,6 +359,8 @@ const LecturerReports = ({ user }) => {
               <thead>
                 <tr>
                   <th>Class</th>
+                  <th>Course</th>
+                  <th>Code</th>
                   <th>Week</th>
                   <th>Topic</th>
                   <th>Date</th>
@@ -363,6 +374,8 @@ const LecturerReports = ({ user }) => {
                 {reports.map((r) => (
                   <tr key={r.report_id}>
                     <td>{r.class_name || r.class_id}</td>
+                    <td>{r.course_name || "—"}</td>
+                    <td>{r.course_code || "—"}</td>
                     <td>{r.week}</td>
                     <td>{r.topic}</td>
                     <td>{new Date(r.lecture_date).toLocaleDateString()}</td>
@@ -395,7 +408,8 @@ const LecturerReports = ({ user }) => {
             <ul className="list-group">
               {feedbackList.map((f) => (
                 <li key={f.id} className="list-group-item">
-                  <strong>Report ID:</strong> {f.report.report_id || "—"} <br />
+                  <strong>Report ID:</strong> {f.report.report_id || "—"}{" "}
+                  <br />
                   <strong>Topic:</strong> {f.report.topic || "—"} <br />
                   <strong>Feedback:</strong> {f.feedback_text} <br />
                   <small className="text-muted">
